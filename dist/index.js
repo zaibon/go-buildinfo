@@ -97,7 +97,7 @@ function releaseVersion() {
         return releaseVersion;
     }
     const ref = process.env.GITHUB_REF;
-    if (ref) {
+    if (ref && /^v?\d/.test(ref)) {
         return ref;
     }
     const runNumber = process.env.GITHUB_RUN_NUMBER;
