@@ -7,7 +7,7 @@ function releaseVersion(): string {
   }
 
   const ref = process.env.GITHUB_REF;
-  if (ref) {
+  if (ref && /^v?\d/.test(ref)) {
     return ref;
   }
 
