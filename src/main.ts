@@ -1,5 +1,7 @@
 import * as core from '@actions/core';
 
+const tagsPrefix = 'refs/tags/';
+
 function releaseVersion(): string {
   const releaseVersion: string = core.getInput('release_version');
   if (releaseVersion !== '') {
@@ -7,8 +9,8 @@ function releaseVersion(): string {
   }
 
   const ref = process.env.GITHUB_REF;
-  if (ref && /^v?\d/.test(ref)) {
-    return ref;
+  if (ref && ref.startsWith(tagsPrefix)) {
+    return ref.substring(tagsPrefix.length);
   }
 
   const runNumber = process.env.GITHUB_RUN_NUMBER;

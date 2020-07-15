@@ -91,14 +91,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
+const tagsPrefix = 'refs/tags/';
 function releaseVersion() {
     const releaseVersion = core.getInput('release_version');
     if (releaseVersion !== '') {
         return releaseVersion;
     }
     const ref = process.env.GITHUB_REF;
-    if (ref && /^v?\d/.test(ref)) {
-        return ref;
+    if (ref && ref.startsWith(tagsPrefix)) {
+        return ref.substring(tagsPrefix.length);
     }
     const runNumber = process.env.GITHUB_RUN_NUMBER;
     if (runNumber) {
