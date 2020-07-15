@@ -94,12 +94,17 @@ const core = __importStar(__webpack_require__(470));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const releaseVersion = core.getInput('release_version');
+            const ldflags = [];
+            let releaseVersion = core.getInput('release_version');
+            if (releaseVersion === '') {
+                releaseVersion = process.env['GITHUB_RUN_NUMBER'] || 'unknown';
+            }
+            ldflags.push(`-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion}`);
             core.debug(`Release Version: ${releaseVersion}`);
             for (const key of Object.keys(process.env)) {
                 core.debug(`${key}=${process.env[key]}`);
             }
-            core.exportVariable('BI_LDFLAGS', 'foobar');
+            core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
         }
         catch (error) {
             core.setFailed(error.message);

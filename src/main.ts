@@ -8,7 +8,9 @@ async function run(): Promise<void> {
     if (releaseVersion === '') {
       releaseVersion = process.env['GITHUB_RUN_NUMBER'] || 'unknown';
     }
-    ldflags.push(`-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion}`)
+    ldflags.push(
+      `-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion}`
+    );
 
     core.debug(`Release Version: ${releaseVersion}`);
     for (const key of Object.keys(process.env)) {
