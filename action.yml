@@ -1,10 +1,9 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'go-buildinfo'
+description: 'Helps populate buildinfo for Go.'
+author: 'Naitik Shah'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  release_version:
+    description: 'Specify release version to use. Automatically determined if unset.'
 runs:
   using: 'node12'
   main: 'dist/index.js'
