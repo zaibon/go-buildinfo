@@ -1,6 +1,6 @@
 {
   "name": "go-buildinfo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "GitHub Action to populate buildinfo for Go.",
   "main": "lib/main.js",
