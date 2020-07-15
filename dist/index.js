@@ -91,19 +91,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
+function releaseVersion() {
+    const releaseVersion = core.getInput('release_version');
+    if (releaseVersion !== '') {
+        return releaseVersion;
+    }
+    const ref = process.env.GITHUB_REF;
+    if (ref) {
+        return ref;
+    }
+    const runNumber = process.env.GITHUB_RUN_NUMBER;
+    if (runNumber) {
+        return `v${runNumber}`;
+    }
+    return 'unknown';
+}
+function buildURL() {
+    return `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+}
+function buildHash() {
+    return process.env.GITHUB_SHA || 'unknown';
+}
+function buildTimeUnix() {
+    return `${Math.round(Date.now() / 1000)}`;
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ldflags = [];
-            let releaseVersion = core.getInput('release_version');
-            if (releaseVersion === '') {
-                releaseVersion = process.env['GITHUB_RUN_NUMBER'] || 'unknown';
-            }
-            ldflags.push(`-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion}`);
-            core.debug(`Release Version: ${releaseVersion}`);
-            for (const key of Object.keys(process.env)) {
-                core.debug(`${key}=${process.env[key]}`);
-            }
+            const ldflags = [
+                `-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion()}`,
+                `-X github.com/daaku/buildinfo.buildHash=${buildHash()}`,
+                `-X github.com/daaku/buildinfo.buildTimeUnix=${buildTimeUnix()}`,
+                `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`
+            ];
             core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
         }
         catch (error) {

@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 
 function releaseVersion(): string {
-  let releaseVersion: string = core.getInput('release_version');
+  const releaseVersion: string = core.getInput('release_version');
   if (releaseVersion !== '') {
     return releaseVersion;
   }
@@ -20,7 +20,7 @@ function releaseVersion(): string {
 }
 
 function buildURL(): string {
-  return `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+  return `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 }
 
 function buildHash(): string {
@@ -28,7 +28,7 @@ function buildHash(): string {
 }
 
 function buildTimeUnix(): string {
-  return `${Math.round(Date.now()/1000)}`;
+  return `${Math.round(Date.now() / 1000)}`;
 }
 
 async function run(): Promise<void> {
@@ -37,7 +37,7 @@ async function run(): Promise<void> {
       `-X github.com/daaku/buildinfo.releaseVersion=${releaseVersion()}`,
       `-X github.com/daaku/buildinfo.buildHash=${buildHash()}`,
       `-X github.com/daaku/buildinfo.buildTimeUnix=${buildTimeUnix()}`,
-      `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`,
+      `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`
     ];
     core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
   } catch (error) {
