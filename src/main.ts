@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import { appendFile } from 'fs/promises';
 
 const tagsPrefix = 'refs/tags/';
 
@@ -41,7 +42,7 @@ async function run(): Promise<void> {
       `-X github.com/daaku/buildinfo.buildTimeUnix=${buildTimeUnix()}`,
       `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`
     ];
-    core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
+    await appendFile(process.env.GITHUB_ENV, `BI_LDFLAGS=${ldflags.join(' ')}`);
   } catch (error) {
     core.setFailed(error.message);
   }
