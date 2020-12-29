@@ -42,7 +42,7 @@ async function run(): Promise<void> {
       `-X github.com/daaku/buildinfo.buildTimeUnix=${buildTimeUnix()}`,
       `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`
     ];
-    await appendFile(process.env.GITHUB_ENV, `BI_LDFLAGS=${ldflags.join(' ')}`);
+    await appendFile(process.env.GITHUB_ENV!, `BI_LDFLAGS=${ldflags.join(' ')}`);
   } catch (error) {
     core.setFailed(error.message);
   }
