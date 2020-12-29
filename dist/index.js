@@ -153,7 +153,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
-const promises_1 = __webpack_require__(225);
 const tagsPrefix = 'refs/tags/';
 function releaseVersion() {
     const releaseVersion = core.getInput('release_version');
@@ -188,7 +187,7 @@ function run() {
                 `-X github.com/daaku/buildinfo.buildTimeUnix=${buildTimeUnix()}`,
                 `-X github.com/daaku/buildinfo.buildURL=${buildURL()}`
             ];
-            yield promises_1.appendFile(process.env.GITHUB_ENV, `BI_LDFLAGS=${ldflags.join(' ')}`);
+            core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
         }
         catch (error) {
             core.setFailed(error.message);
@@ -197,13 +196,6 @@ function run() {
 }
 run();
 
-
-/***/ }),
-
-/***/ 225:
-/***/ (function(module) {
-
-module.exports = require("fs/promises");
 
 /***/ }),
 
