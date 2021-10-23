@@ -43,7 +43,11 @@ async function run(): Promise<void> {
     ];
     core.exportVariable('BI_LDFLAGS', ldflags.join(' '));
   } catch (error) {
-    core.setFailed(error.message);
+    let msg = 'unknown error';
+    if (error instanceof Error) {
+      msg = error.message;
+    }
+    core.setFailed(msg);
   }
 }
 
