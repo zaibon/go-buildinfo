@@ -8,7 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.1.1
-    - run: |
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.20.2'
+    - name: install
+      run: |
         npm install
         npm run all
   test:
