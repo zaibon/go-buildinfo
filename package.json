@@ -20,7 +20,7 @@
   "author": "Naitik Shah",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.9.1"
+    "@actions/core": "^1.10.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

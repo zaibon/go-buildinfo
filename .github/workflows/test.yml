@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Go
-      uses: actions/setup-go@v2.1.3
+      uses: actions/setup-go@v4
       with:
-        go-version: '1.15'
-    - uses: actions/checkout@v2.1.1
+        go-version: '1.21'
+    - uses: actions/checkout@v3
     - uses: ./
     - name: Env
       run: echo $BI_LDFLAGS
